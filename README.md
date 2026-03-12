@@ -25,7 +25,7 @@ Cloudflare Pages:
 - Build command: `npm run build`
 - Build output directory: `dist`
 
-`public/_redirects` 已经包含 SPA 路由回退配置，直接支持刷新子路径。
+如果你使用 Cloudflare 的 Vite / Wrangler 集成，SPA 路由回退由 Cloudflare 资产配置处理，不需要额外的 `_redirects` 文件。
 
 ## 当前结构
 
