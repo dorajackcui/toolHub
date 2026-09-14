@@ -2,3 +2,12 @@ node_modules
 dist
 .wrangler
 .DS_Store
+.sources/
+.cache/
+test-results/
+playwright-report/
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+.env*
+!.env.example

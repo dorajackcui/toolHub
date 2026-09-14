@@ -1,7 +1,12 @@
-import type { ReactElement } from "react";
+import type { ComponentType, LazyExoticComponent } from "react";
+import type { LucideIcon } from "lucide-react";
 
 export type ToolDefinition = {
   id: string;
   name: string;
-  component: () => ReactElement;
+  path: string;
+  englishName: string;
+  description: string;
+  icon: LucideIcon;
+  component: LazyExoticComponent<ComponentType>;
 };
