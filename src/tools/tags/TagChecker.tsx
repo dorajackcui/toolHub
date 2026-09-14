@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { CheckCheck, CircleAlert, RotateCcw, Sparkles } from "lucide-react";
+import { CheckCheck, CircleAlert } from "lucide-react";
 import ExcelImporter, {
   type ImportedTexts,
 } from "../../components/ExcelImporter";
@@ -66,30 +66,16 @@ export default function TagChecker() {
 
   return (
     <>
-      <ToolHeader
-        name="标签检查"
-        description="跨语言核对标签与数字，让每一处占位符都准确无误。"
-        number="01"
-      >
+      <ToolHeader name="标签检查">
         <Button
           variant="ghost"
           onClick={() => importTexts({ ...EXAMPLE, descriptions: ["", ""] })}
         >
-          <Sparkles size={15} />
-          试用示例
+          示例
         </Button>
-        <Button onClick={clear}>
-          <RotateCcw size={14} />
-          清空内容
-        </Button>
+        <Button onClick={clear}>清空</Button>
       </ToolHeader>
       <ExcelImporter key={importKey} mode="tags" onImport={importTexts} />
-      <div className="section-label">
-        <span>
-          <b>01</b> 输入内容
-        </span>
-        <small>按相同行号进行校验</small>
-      </div>
       <TextInputs
         prefix="tags"
         left={left}
@@ -119,7 +105,6 @@ export default function TagChecker() {
                   }))
                 }
               />
-              <span className="switch-track" aria-hidden="true" />
               {label}
             </label>
           ))}
@@ -132,9 +117,7 @@ export default function TagChecker() {
         />
       </div>
       <div className="section-label">
-        <span>
-          <b>02</b> 校验结果
-        </span>
+        <span>结果</span>
         <div className="legend">
           <span>
             <i className="legend-green" />
@@ -196,11 +179,11 @@ export default function TagChecker() {
           </div>
         )}
         {!results.length ? (
-          <EmptyState>准备好，开始检查</EmptyState>
+          <EmptyState />
         ) : !visible.length ? (
           <div className="filtered-empty">
             <CheckCheck size={21} />
-            所有已检查的标签与数字均一致
+            无错误
           </div>
         ) : (
           <div className="result-scroll">
@@ -208,12 +191,8 @@ export default function TagChecker() {
               <thead>
                 <tr>
                   <th className="number-column">行</th>
-                  <th>
-                    原始文本<span>SOURCE</span>
-                  </th>
-                  <th>
-                    对照文本<span>TARGET</span>
-                  </th>
+                  <th>原始文本</th>
+                  <th>对照文本</th>
                 </tr>
               </thead>
               <tbody>
@@ -264,9 +243,6 @@ export default function TagChecker() {
           </div>
         )}
       </section>
-      <p className="tool-footnote">
-        检查标签的内容、数量与顺序；普通文字差异可使用「文本比较」。
-      </p>
     </>
   );
 }

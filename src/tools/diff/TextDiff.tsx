@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { CheckCheck, RotateCcw, Sparkles } from "lucide-react";
+import { CheckCheck } from "lucide-react";
 import ExcelImporter, {
   type ImportedTexts,
 } from "../../components/ExcelImporter";
@@ -80,11 +80,7 @@ export default function TextDiff() {
 
   return (
     <>
-      <ToolHeader
-        name="文本比较"
-        description="逐行比较两份文本，精确定位每一个字符的变化。"
-        number="02"
-      >
+      <ToolHeader name="文本比较">
         <Button
           variant="ghost"
           onClick={() =>
@@ -96,21 +92,11 @@ export default function TextDiff() {
             })
           }
         >
-          <Sparkles size={15} />
-          试用示例
+          示例
         </Button>
-        <Button onClick={clear}>
-          <RotateCcw size={14} />
-          清空内容
-        </Button>
+        <Button onClick={clear}>清空</Button>
       </ToolHeader>
       <ExcelImporter key={importKey} mode="diff" onImport={importTexts} />
-      <div className="section-label">
-        <span>
-          <b>01</b> 输入内容
-        </span>
-        <small>按相同行号进行比较</small>
-      </div>
       <TextInputs
         prefix="diff"
         left={left}
@@ -138,9 +124,7 @@ export default function TextDiff() {
         </span>
       </div>
       <div className="section-label">
-        <span>
-          <b>02</b> 对比结果
-        </span>
+        <span>结果</span>
         <div className="legend">
           <span>
             <i className="legend-red" />
@@ -176,7 +160,7 @@ export default function TextDiff() {
           />
         </div>
         {!results.length ? (
-          <EmptyState>每一处变化，一目了然</EmptyState>
+          <EmptyState />
         ) : !visible.length ? (
           <div className="filtered-empty">
             <CheckCheck size={21} />
@@ -188,12 +172,8 @@ export default function TextDiff() {
               <thead>
                 <tr>
                   <th className="number-column">行</th>
-                  <th>
-                    原始文本<span>SOURCE</span>
-                  </th>
-                  <th>
-                    对照文本<span>TARGET</span>
-                  </th>
+                  <th>原始文本</th>
+                  <th>对照文本</th>
                 </tr>
               </thead>
               <tbody>
@@ -247,9 +227,6 @@ export default function TextDiff() {
           </div>
         )}
       </section>
-      <p className="tool-footnote">
-        按行号对应比较，保留空格、空行与大小写差异。红色为原始文本的删除内容，绿色为对照文本的新增内容。
-      </p>
     </>
   );
 }

@@ -42,7 +42,6 @@ export default function TagTypeSettings({
       >
         <div className="dialog-heading">
           <div>
-            <div className="eyebrow">CHECK SETTINGS</div>
             <h2 id="tag-settings-title">标签类型</h2>
           </div>
           <Button
@@ -53,7 +52,6 @@ export default function TagTypeSettings({
             <X size={20} />
           </Button>
         </div>
-        <p className="muted">选择启用「标签检查」时需要校验的格式。</p>
         <div className="tag-type-list">
           {TAG_TYPE_DEFINITIONS.map((type, index) => (
             <label

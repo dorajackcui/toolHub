@@ -59,7 +59,6 @@ export default function ExcelImporter({
       setWorkbook(parsed);
       setSheetIndex(0);
       setColumns([0, parsed.sheets[0].columns.length > 1 ? 1 : 0]);
-      setStatus(`已读取 ${file.name}，选择两列后应用。`);
     } catch {
       setWorkbook(null);
       setError("无法读取文件或没有可用列，请检查文件是否完整。");
@@ -129,10 +128,7 @@ export default function ExcelImporter({
             <FileSpreadsheet size={19} />
           </span>
           <span>
-            <strong>从表格导入</strong>
-            <span className="import-caption">
-              拖入 Excel / CSV，快速比较两列内容
-            </span>
+            <strong>Excel / CSV</strong>
           </span>
           <ChevronDown size={16} className={expanded ? "rotated" : ""} />
         </button>
@@ -159,10 +155,7 @@ export default function ExcelImporter({
       </div>
       <div id={id} hidden={!expanded} className="import-content">
         {!workbook && !busy && (
-          <p className="import-help">
-            支持
-            .xlsx、.xls、.csv；可选择工作表与对应列。也可以直接在下方粘贴文本。
-          </p>
+          <p className="import-help">拖入 .xlsx / .xls / .csv</p>
         )}
         {workbook && sheet && (
           <>

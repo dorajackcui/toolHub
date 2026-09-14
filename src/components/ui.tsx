@@ -1,5 +1,4 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { FileSearch } from "lucide-react";
 
 export function Button({
   className = "",
@@ -11,44 +10,30 @@ export function Button({
   return (
     <button
       type="button"
-      className={`button button--${variant} ${className}`}
+      className={"button button--" + variant + " " + className}
       {...props}
     />
   );
 }
 
-export function EmptyState({ children }: { children: ReactNode }) {
+export function EmptyState() {
   return (
-    <div className="empty-state">
-      <div className="empty-icon">
-        <FileSearch size={24} strokeWidth={1.5} />
-      </div>
-      <p>{children}</p>
-      <span>输入两侧文本，结果会实时显示在这里</span>
+    <div className="empty-state" aria-label="暂无结果">
+      —
     </div>
   );
 }
 
 export function ToolHeader({
   name,
-  description,
-  number,
   children,
 }: {
   name: string;
-  description: string;
-  number: string;
   children?: ReactNode;
 }) {
   return (
     <header className="tool-header">
-      <div>
-        <div className="eyebrow">
-          <span /> WORKSPACE / {number}
-        </div>
-        <h1>{name}</h1>
-        <p>{description}</p>
-      </div>
+      <h1>{name}</h1>
       <div className="header-actions">{children}</div>
     </header>
   );
@@ -73,19 +58,16 @@ export function TextInputs({
     <div className="text-inputs">
       {(
         [
-          ["left", "原始文本", "SOURCE", left, onLeft, descriptions[0]],
-          ["right", "对照文本", "TARGET", right, onRight, descriptions[1]],
+          ["left", "原始文本", left, onLeft, descriptions[0]],
+          ["right", "对照文本", right, onRight, descriptions[1]],
         ] as const
-      ).map(([side, label, caption, value, onChange, description]) => (
+      ).map(([side, label, value, onChange, description]) => (
         <section className="input-panel" key={side}>
           <div className="input-heading">
-            <label htmlFor={`${prefix}-${side}`}>
-              <span className={`side-dot side-dot--${side}`} />
-              {label}
-              <span className="tiny-label">{caption}</span>
-            </label>
-            <span className="line-count">
-              {value ? value.split("\n").length : 0} 行
+            <label htmlFor={prefix + "-" + side}>{label}</label>
+            <span className="input-count">
+              {value ? value.split("\n").length : 0} 行 /{" "}
+              {[...value].length.toLocaleString()} 字符
             </span>
           </div>
           {description && (
@@ -94,20 +76,11 @@ export function TextInputs({
             </p>
           )}
           <textarea
-            id={`${prefix}-${side}`}
+            id={prefix + "-" + side}
             value={value}
             onChange={(event) => onChange(event.target.value)}
-            placeholder={
-              side === "left"
-                ? "在此粘贴原始文本，或从表格导入…"
-                : "在此粘贴对照文本，或从表格导入…"
-            }
             spellCheck={false}
           />
-          <div className="input-footer">
-            <span>支持多行文本</span>
-            <span>{[...value].length.toLocaleString()} 字符</span>
-          </div>
         </section>
       ))}
     </div>
