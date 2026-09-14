@@ -18,7 +18,7 @@
 }
 body {
   margin: 0;
-  min-width: 320px;
+  min-width: 300px;
 }
 button,
 input,
@@ -84,6 +84,7 @@ a svg {
   color: #71717a;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
+  white-space: nowrap;
 }
 .nav-tool:hover {
   color: var(--ink);
@@ -643,6 +644,154 @@ mark {
 .loading-state {
   padding: 32px 0;
 }
+.count-results {
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.count-primary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+}
+.count-primary > div {
+  padding: 18px 20px;
+  min-width: 0;
+}
+.count-primary > div + div {
+  border-left: 1px solid var(--line);
+}
+.count-primary dt {
+  font-size: 12px;
+}
+.count-primary dd {
+  margin: 4px 0 0;
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.count-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--line);
+  margin: 0;
+  font-size: 12px;
+}
+.count-secondary > div {
+  display: flex;
+  gap: 8px;
+}
+.count-secondary dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.count-input textarea {
+  min-height: 340px;
+}
+.tool-details {
+  margin-top: 16px;
+  font-size: 12px;
+}
+.tool-details summary {
+  cursor: pointer;
+  width: fit-content;
+}
+.tool-details ul {
+  margin: 12px 0 0;
+  padding-left: 20px;
+}
+.tool-details li + li {
+  margin-top: 6px;
+}
+.clean-options {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  margin-bottom: 20px;
+}
+.clean-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  padding: 14px 12px;
+}
+.clean-selects {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  border-top: 1px solid var(--line);
+  padding: 10px 12px;
+}
+.clean-selects label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.clean-selects select {
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--surface);
+}
+.clean-selects > button {
+  margin-left: auto;
+}
+.clean-inputs textarea {
+  min-height: 320px;
+}
+.clean-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  font-size: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.copy-action {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.copy-status {
+  font-size: 11px;
+}
+.copy-status:empty {
+  display: none;
+}
+.tool-details .result-scroll {
+  border: 1px solid var(--line);
+  margin-top: 12px;
+}
+.clean-changes {
+  background: var(--surface);
+}
+.removed-line {
+  font-size: 11px;
+  color: #95273a;
+}
+.hidden-preview {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  max-height: 280px;
+  overflow-y: auto;
+}
+.preview-note {
+  font-size: 11px;
+  margin: 8px 0 0;
+}
 .skip-link {
   position: fixed;
   top: -60px;
@@ -687,16 +836,24 @@ mark {
   .check-switches {
     gap: 14px;
   }
+  .repository-link {
+    display: none;
+  }
 }
 @media (max-width: 520px) {
   .app-nav {
-    gap: 20px;
+    gap: 0;
     padding: 0 16px;
     flex-wrap: wrap;
   }
   .app-nav nav {
-    gap: 18px;
-    min-height: 56px;
+    gap: 12px;
+    min-height: 44px;
+    flex-basis: 100%;
+    justify-content: space-between;
+  }
+  .brand {
+    padding: 12px 0 4px;
   }
   .nav-tool {
     font-size: 12px;
@@ -749,6 +906,26 @@ mark {
   }
   .diff-summary {
     gap: 18px;
+  }
+  .count-primary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .count-primary > div {
+    padding: 12px;
+  }
+  .count-primary > div:nth-child(3) {
+    border-left: 0;
+  }
+  .count-primary > div:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+  .count-secondary {
+    padding: 12px;
+    gap: 8px 18px;
+  }
+  .count-input textarea,
+  .clean-inputs textarea {
+    min-height: 240px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
