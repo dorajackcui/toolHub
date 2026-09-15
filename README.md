@@ -2,7 +2,10 @@
 
 将标签检查、文本比较、字数统计和文本清洗整合到同一个 React + TypeScript + Vite 项目。全部处理在浏览器内完成；无需数据库、API、Vercel 或源仓库在线服务。
 
-线上入口：[momotools.dorajackcui.workers.dev](https://momotools.dorajackcui.workers.dev/)
+线上入口：
+
+- Cloudflare 主站：[momotools.dorajackcui.workers.dev](https://momotools.dorajackcui.workers.dev/)
+- Vercel 备用站：[toolhub-momo.vercel.app](https://toolhub-momo.vercel.app/)
 
 ## 工具与迁移范围
 
@@ -93,6 +96,19 @@ npm run deploy
 若另外使用 Cloudflare Pages，选择 React/Vite，构建命令 `npm run build`、输出目录 `dist`。Pages 自带 SPA 回退；项目不生成 `404.html`。现有 Workers 项目无需迁移到 Pages。
 
 官方说明：[Workers 静态资源](https://developers.cloudflare.com/workers/static-assets/)、[SPA 路由](https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/)、[Pages React 部署](https://developers.cloudflare.com/pages/framework-guides/deploy-a-react-site/)。
+
+## Vercel 备用站与自动更新
+
+Vercel 项目 `toolhub`（原 `v0-landing-page-for-app`）直接连接本仓库的 `main` 分支，与 Cloudflare 使用相同的应用代码。提交到 `main` 后，两个平台分别自动构建、发布；发布耗时可能不同。备用站独立托管全部页面、脚本和字体，运行时不请求 Cloudflare 主站。
+
+- 仓库：`dorajackcui/toolHub`，生产分支：`main`，根目录：`/`。
+- 框架：Vite；安装：`npm ci`；构建：`npm run build`；输出目录：`dist`。
+- `vercel.json` 配置 SPA 回退，使直接打开或刷新 `/tags`、`/diff`、`/count`、`/clean` 均可访问，并与主站保持一致的安全响应头。
+- 旧地址 `v0-landing-page-for-app-ten.vercel.app` 跳转到新备用站地址。
+- 旧仓库 `dorajackcui/v0-landing-page-for-app` 已解除此项目的 Git 连接，不再作为部署来源。以后请在 `toolHub` 修改工具；无须维护第二份代码，也没有从备用站回写源仓库的同步流程。
+- 输入数据只保存在当前页面会话，两站之间不传输输入或上传文件。
+
+官方说明：[Vercel Git 自动部署](https://vercel.com/docs/git)、[Vite SPA 配置](https://vercel.com/docs/frameworks/frontend/vite#using-vite-to-make-spas)。
 
 ## 以后添加工具
 
