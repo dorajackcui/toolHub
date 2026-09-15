@@ -1,0 +1,42 @@
+/* YIZHI visual reference 1.1 · 2026-09-15
+   https://dorajackcui.github.io/reference.html
+   Shared visual roles; tool-specific status colors retain their meaning. */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  --font-mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  --surface: #ffffff;
+  --surface-subtle: #f7f7f5;
+  --ink: #2f2f2c;
+  --muted: #707068;
+  --brand: #d97757;
+  --line: #e9e9e5;
+  --control-line: #85857c;
+  --link-line: #b6b6ac;
+  --focus: #2383e2;
+  --ink-hover: #454540;
+  --backdrop: #2f2f2c33;
+  --success-ink: #20533c;
+  --success-fill: #dcece3;
+  --error-ink: #95273a;
+  --error-fill: #f1dde0;
+  --radius-control: 4px;
+  --radius-panel: 6px;
+  --radius-dialog: 8px;
+  --feedback-duration: 150ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --feedback-duration: 0ms;
+  }
+}

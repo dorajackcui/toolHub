@@ -31,6 +31,7 @@ export default function App() {
       <header className="app-nav">
         <a
           className="brand"
+          aria-label="Tool Hub 首页"
           href="/tags"
           onClick={(event) => {
             if (
@@ -46,7 +47,10 @@ export default function App() {
             setVisited((previous) => new Set([...previous, "tags"]));
           }}
         >
-          [toolhub]
+          Tool Hub
+          <span className="brand-dot" aria-hidden="true">
+            .
+          </span>
         </a>
         <nav aria-label="工具导航">
           {tools.map((tool) => (

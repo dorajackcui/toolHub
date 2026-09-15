@@ -17,6 +17,12 @@
 
 原 toolHub 的 Excel Batch Processor 页面和旧组件已移除。这里是实际代码迁移，没有 iframe、子模块或对原站点的运行时依赖。
 
+## 视觉基础
+
+四个工具采用 [YIZHI 通用视觉参考 1.1（2026-09-15）](https://dorajackcui.github.io/reference.html)：白色工作区、暖灰文字、橙色品牌句点和蓝色键盘焦点。`src/theme.css` 集中定义颜色、字体、圆角与反馈时长；`src/styles.css` 按编辑器和表格的工作密度适配组件。
+
+Inter 可变字体在 `public/fonts/` 本地托管，随附 `Inter-OFL.txt` 许可证；中文使用系统黑体。差异高亮继续使用原有红绿语义色。移动端保留可读字号，并扩大操作区域。
+
 ## 与源仓库的兼容性
 
 - 标签来源：[v0-tags-checker-5r](https://github.com/dorajackcui/v0-tags-checker-5r)，迁移快照 `e3f429a6094bc3c7a8467c949d0589f635b2f644`。
