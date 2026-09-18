@@ -1,12 +1,28 @@
-import { countLines, graphemes } from "../../lib/text";
+import { countCharacters, countLines, graphemes } from "../../lib/text";
 
 const words = new Intl.Segmenter("zh-CN", { granularity: "word" });
 const han = /\p{Unified_Ideograph}|[\u3007\uFA0E\uFA0F]/gu;
+const lineSeparator = /\r\n|[\r\n\u2028\u2029]/u;
 
 function countWords(text: string) {
   let count = 0;
   for (const word of words.segment(text)) if (word.isWordLike) count++;
   return count;
+}
+
+function countWordCount(text: string) {
+  return Array.from(text.matchAll(han)).length + countWords(text.replace(han, " "));
+}
+
+export function countTextLines(text: string) {
+  if (!text) return [];
+  return text.split(lineSeparator).map((line, index) => ({
+    number: index + 1,
+    text: line,
+    wordCount: countWordCount(line),
+    characters: countCharacters(line),
+    words: countWords(line),
+  }));
 }
 
 export function countText(text: string) {
@@ -17,7 +33,7 @@ export function countText(text: string) {
     if (!/^\s+$/u.test(segment)) withoutWhitespace++;
   }
   const hanCharacters = Array.from(text.matchAll(han)).length;
-  const lines = text.split(/\r\n|[\r\n\u2028\u2029]/u);
+  const lines = text.split(lineSeparator);
   let paragraphs = 0;
   let inParagraph = false;
   for (const line of lines) {
@@ -28,7 +44,7 @@ export function countText(text: string) {
   }
   return {
     // Count Han individually; segment the remaining languages into words.
-    wordCount: hanCharacters + countWords(text.replace(han, " ")),
+    wordCount: countWordCount(text),
     characters,
     withoutWhitespace,
     words: countWords(text),

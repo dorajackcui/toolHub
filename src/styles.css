@@ -738,8 +738,130 @@ mark {
   font-variant-numeric: tabular-nums;
   font-weight: 600;
 }
-.count-input textarea {
-  min-height: 340px;
+.count-editor {
+  --count-line-height: 28px;
+  --count-gutter-width: 36px;
+  --count-stats-width: 156px;
+}
+.count-editor-grid {
+  display: grid;
+  grid-template-columns: var(--count-gutter-width) minmax(0, 1fr) var(--count-stats-width);
+}
+.count-editor-text {
+  min-width: 0;
+  position: relative;
+}
+.count-editor-stats {
+  padding-block: 12px;
+  border-left: 1px solid var(--line);
+  background: var(--surface-subtle);
+}
+.count-editor-heading {
+  height: 40px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-subtle);
+  font-size: 12px;
+  overflow-y: hidden;
+  scrollbar-gutter: stable;
+}
+.count-editor-heading > .input-count {
+  padding-inline: 12px;
+}
+.count-heading-wrap {
+  position: relative;
+}
+.count-character-hint {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-decoration: underline dotted var(--muted);
+  text-underline-offset: 4px;
+  cursor: help;
+}
+.count-character-tooltip {
+  position: absolute;
+  top: 100%;
+  right: 12px;
+  z-index: 2;
+  padding: 6px 10px;
+  border-radius: var(--radius-control);
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.count-editor-scroll {
+  max-height: 520px;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  border-radius: 0 0 var(--radius-panel) var(--radius-panel);
+}
+.count-editor-content {
+  min-height: 320px;
+}
+.count-editor textarea,
+.count-text-mirror {
+  margin: 0;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: var(--count-line-height);
+  letter-spacing: normal;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  tab-size: 4;
+}
+.count-text-mirror {
+  visibility: hidden;
+  pointer-events: none;
+}
+.count-text-mirror > div {
+  min-height: var(--count-line-height);
+}
+.count-editor textarea {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  min-height: 0;
+  resize: none;
+  overflow: hidden;
+  border-radius: 0;
+}
+.count-stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: start;
+  padding-inline: 4px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  line-height: var(--count-line-height);
+}
+.count-editor-heading .count-stat-row {
+  font-size: 12px;
+  white-space: nowrap;
+}
+.count-editor-stats .count-stat-row {
+  min-height: var(--count-line-height);
+}
+.count-stat-row > span {
+  text-align: right;
+  padding-inline: 4px;
+}
+.count-line-numbers {
+  padding-block: 12px;
+  text-align: right;
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  line-height: var(--count-line-height);
+  user-select: none;
+}
+.count-line-numbers > div {
+  min-height: var(--count-line-height);
+  padding-right: 4px;
 }
 .tool-details {
   margin-top: 16px;
@@ -1003,9 +1125,20 @@ mark {
     padding: 12px;
     gap: 8px 16px;
   }
-  .count-input textarea,
   .clean-inputs textarea {
     min-height: 240px;
+  }
+  .count-editor {
+    --count-gutter-width: 26px;
+    --count-stats-width: 132px;
+  }
+  .count-editor textarea {
+    min-height: 0;
+    padding-inline: 12px;
+  }
+  .count-stat-row {
+    padding-inline: 2px;
+    font-size: 12px;
   }
   .import-heading {
     padding: 8px 12px;

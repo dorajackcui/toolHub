@@ -1,18 +1,20 @@
 import { useDeferredValue, useMemo, useState } from "react";
 import CopyButton from "../../components/CopyButton";
 import { Button, ToolHeader } from "../../components/ui";
-import { countText } from "./count";
+import { countText, countTextLines } from "./count";
+import CountEditor from "./CountEditor";
 
 export default function WordCount() {
   const [text, setText] = useState("");
   const deferredText = useDeferredValue(text);
   const stats = useMemo(() => countText(deferredText), [deferredText]);
+  const lines = useMemo(() => countTextLines(deferredText), [deferredText]);
   const pending = text !== deferredText;
   const primary = [
-    ["字数", stats.wordCount],
-    ["字符（含空白）", stats.characters],
-    ["字符（不含空白）", stats.withoutWhitespace],
-    ["词数", stats.words],
+    ["总字数", stats.wordCount],
+    ["总词数", stats.words],
+    ["总字符数（含空）", stats.characters],
+    ["总字符数（不含空）", stats.withoutWhitespace],
   ] as const;
   const secondary = [
     ["汉字", stats.hanCharacters],
@@ -58,23 +60,25 @@ export default function WordCount() {
           ))}
         </dl>
       </section>
-      <section className="input-panel count-input">
+      <section className="input-panel count-editor">
         <div className="input-heading">
           <label htmlFor="count-text">文本</label>
           <CopyButton
             label="复制统计"
             disabled={!text || pending}
-            text={[...primary, ...secondary]
-              .map(([label, value]) => `${label}：${value}`)
-              .join("\n")}
+            text={[
+              ...[...primary, ...secondary].map(
+                ([label, value]) => `${label}：${value}`,
+              ),
+              "",
+              "逐行统计（字符含空白，不含换行）",
+              ...lines.map(
+                (line) => `第 ${line.number} 行：${line.wordCount} 字 / ${line.words} 词 / ${line.characters} 字符（含空）`,
+              ),
+            ].join("\n")}
           />
         </div>
-        <textarea
-          id="count-text"
-          value={text}
-          onChange={(event) => setText(event.target.value)}
-          spellCheck={false}
-        />
+        <CountEditor text={text} onChange={setText} lines={lines} pending={pending} />
       </section>
       <details className="tool-details">
         <summary>统计口径</summary>
@@ -93,6 +97,7 @@ export default function WordCount() {
             数字和标点逐字符统计。行数含空行；段落以空行分隔。UTF-8
             字节包含空白和换行。
           </li>
+          <li>逐行统计按实际换行分隔，空行保留；自动折行不增加行数。</li>
         </ul>
       </details>
     </>

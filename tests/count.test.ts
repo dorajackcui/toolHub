@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { countText } from "../src/tools/count/count";
+import { countText, countTextLines } from "../src/tools/count/count";
 
 describe("word and character statistics", () => {
   it("starts every metric at zero", () => {
@@ -60,5 +60,30 @@ describe("word and character statistics", () => {
       words: 4,
       digits: 5,
     });
+  });
+});
+
+describe("per-line word counts", () => {
+  it("has no rows for empty input", () => {
+    expect(countTextLines("")).toEqual([]);
+  });
+
+  it("keeps blank, whitespace-only and trailing lines in their original positions", () => {
+    expect(countTextLines("你好 Hello 123!\r\n\r\n \t\r再见\u2028👨‍👩‍👧‍👦\u2029")).toEqual([
+      { number: 1, text: "你好 Hello 123!", wordCount: 4, characters: 13, words: 3 },
+      { number: 2, text: "", wordCount: 0, characters: 0, words: 0 },
+      { number: 3, text: " \t", wordCount: 0, characters: 2, words: 0 },
+      { number: 4, text: "再见", wordCount: 2, characters: 2, words: 1 },
+      { number: 5, text: "👨‍👩‍👧‍👦", wordCount: 0, characters: 1, words: 0 },
+      { number: 6, text: "", wordCount: 0, characters: 0, words: 0 },
+    ]);
+  });
+
+  it("uses the total's counting rules for mixed languages and Unicode", () => {
+    const text = "𠀀你好〇\ndon't stop １２３ ٤٥\ne\u0301 🇨🇳👍🏽\n";
+    const lines = countTextLines(text);
+    expect(lines.map((line) => line.wordCount)).toEqual([4, 4, 1, 0]);
+    expect(lines.reduce((sum, line) => sum + line.wordCount, 0)).toBe(countText(text).wordCount);
+    expect(lines).toHaveLength(countText(text).lines);
   });
 });
