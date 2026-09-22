@@ -96,20 +96,6 @@ a svg {
   font-weight: 500;
   border-bottom-color: var(--ink);
 }
-.repository-link {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  text-decoration: underline;
-  text-decoration-color: var(--link-line);
-  text-underline-offset: 5px;
-  text-decoration-thickness: 1px;
-}
-.repository-link:hover {
-  text-decoration-color: currentColor;
-}
 .workspace {
   max-width: 1440px;
   margin: 0 auto;
@@ -1016,9 +1002,6 @@ mark {
   .check-switches {
     gap: 12px;
   }
-  .repository-link {
-    display: none;
-  }
   .button,
   select,
   .filter-tabs button,
@@ -1065,9 +1048,6 @@ mark {
   }
   .nav-tool {
     font-size: 13px;
-  }
-  .repository-link {
-    display: none;
   }
   .workspace {
     padding: 20px 16px 32px;

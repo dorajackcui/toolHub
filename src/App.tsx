@@ -1,5 +1,4 @@
 import { Suspense, useEffect, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { tools } from "./tools";
 
 const currentTool = () =>
@@ -78,14 +77,6 @@ export default function App() {
             </a>
           ))}
         </nav>
-        <a
-          className="repository-link"
-          href="https://github.com/dorajackcui/toolHub"
-          target="_blank"
-          rel="noreferrer"
-        >
-          GitHub <ArrowUpRight size={13} />
-        </a>
       </header>
       <main id="workspace" tabIndex={-1} className="workspace">
         {tools
